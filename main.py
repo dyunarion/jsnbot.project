@@ -11,10 +11,8 @@ from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 import webapp2
 
-
 # URL, JSON, 로그, 정규표현식 관련 라이브러리 로드
 import urllib
-import urllib2
 import json
 import logging
 import re
@@ -182,7 +180,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
             })
         params['reply_markup'] = reply_markup
     try:
-        urllib2.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
+        urllib.request.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
     except Exception as e: 
         logging.exception(e)
 
@@ -234,7 +232,7 @@ def cmd_news_crawling(chat_id, text, max_count):
        send_msg(chat_id, u'뭐 어떤 종류를 원하는데 똑바로 해라.')
        return
 
-    html = urllib2.urlopen('http://news.naver.com')
+    html = urllib.request.urlopen('http://news.naver.com')
     soup = BeautifulSoup(html)
     subject = soup.find('div', {'id':news_type})
     urls = subject.findAll('a')
@@ -247,7 +245,7 @@ def cmd_news_crawling(chat_id, text, max_count):
        send_msg(chat_id, 'http://news.naver.com' + url['href'], None, False)
 
 def cmd_crawling(chat_id, max_count):
-    html = urllib2.urlopen('http://web.humoruniv.com/board/humor/list.html?table=pds')
+    html = urllib.request.urlopen('http://web.humoruniv.com/board/humor/list.html?table=pds')
     soup = BeautifulSoup(html)
     subjects = soup.findAll('div', {'style':'position:relative'})
     send_msg(chat_id, u'오늘 웃대 봤냐?')
@@ -370,13 +368,13 @@ def process_cmds(msg):
 class MeHandler(webapp2.RequestHandler):
     def get(self):
         #urlfetch.set_default_fetch_deadline(60)
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getMe'))))
+        self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'getMe'))))
 
 # /updates 요청시
 class GetUpdatesHandler(webapp2.RequestHandler):
     def get(self):
         #urlfetch.set_default_fetch_deadline(60)
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getUpdates'))))
+        self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'getUpdates'))))
 
 # /set-wehook 요청시
 class SetWebhookHandler(webapp2.RequestHandler):
@@ -384,7 +382,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
         #urlfetch.set_default_fetch_deadline(60)
         url = self.request.get('url')
         if url:
-            self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
+            self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
 
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):

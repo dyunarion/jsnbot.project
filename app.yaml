@@ -1,6 +1,6 @@
 application: jsnbot-168905
 version: 1
-runtime: python27 # or 37
+runtime: python37
 api_version: 1
 threadsafe: yes
 
@@ -11,6 +11,6 @@ handlers:
 - url: .*
   script: main.app
 
-  libraries:
+libraries:
 - name: webapp2
   version: 2.5.2
