@@ -13,7 +13,6 @@ import webapp2
 
 # URL, JSON, 로그, 정규표현식 관련 라이브러리 로드
 import urllib
-import urllib2
 import json
 import logging
 import re
@@ -181,7 +180,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
             })
         params['reply_markup'] = reply_markup
     try:
-        urllib2.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
+        urllib.request.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
     except Exception as e: 
         logging.exception(e)
 
@@ -369,13 +368,13 @@ def process_cmds(msg):
 class MeHandler(webapp2.RequestHandler):
     def get(self):
         #urlfetch.set_default_fetch_deadline(60)
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getMe'))))
+        self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'getMe'))))
 
 # /updates 요청시
 class GetUpdatesHandler(webapp2.RequestHandler):
     def get(self):
         #urlfetch.set_default_fetch_deadline(60)
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getUpdates'))))
+        self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'getUpdates'))))
 
 # /set-wehook 요청시
 class SetWebhookHandler(webapp2.RequestHandler):
@@ -383,7 +382,7 @@ class SetWebhookHandler(webapp2.RequestHandler):
         #urlfetch.set_default_fetch_deadline(60)
         url = self.request.get('url')
         if url:
-            self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
+            self.response.write(json.dumps(json.load(urllib.request.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
 
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
