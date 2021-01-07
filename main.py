@@ -2,7 +2,6 @@ import logging
 
 from flask import Flask,request
 import json
-import urllib
 import urllib.parse as parse
 import urllib.request as req
 
@@ -12,15 +11,18 @@ BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
 app = Flask(__name__)
 
+def baseRequest(command="getMe"):
+     res = req.urlopen(BASE_URL + command)
+     result = json.loads(res.read())['result']
+     return result
+
 # 메시지 발송
 def sendMessage(chat_id, text):
-    params = {
-        'chat_id': str(chat_id),
-        'text': text.encode('utf-8'),
-        }
-    res = req.urlopen(BASE_URL + 'sendMessage', urllib.urlencode(params))
-    result = json.loads(res.read())['result']
-    return result
+    query = parse.urlencode([
+        ('chat_id', chat_id),
+        ('text', text)
+        ])
+    baseRequest('sendMessage?' + query)
 
 @app.route('/')
 def JSNBot() -> str:
