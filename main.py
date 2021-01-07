@@ -18,7 +18,7 @@ import json
 import logging
 import re
 import random
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 
 # 봇 토큰, 봇 API 주소
 TOKEN = '323404291:AAHAcS6OircOxeV83IVxBxdo4f2EGzlqcOM'
@@ -221,42 +221,42 @@ def cmd_broadcast(chat_id, text):
     send_msg(chat_id, u'아아 방송 테스트.')
     broadcast(text)
 
-def cmd_news_crawling(chat_id, text, max_count):
-    news_type = None
-    if text.find(NEWS_POLITICS) > 0:
-       news_type = 'ranking_100'
-    elif text.find(NEWS_ECONOMY) > 0:
-       news_type = 'ranking_101'
-    elif text.find(NEWS_SOCIETY) > 0:
-       news_type = 'ranking_102'
-    else:
-       send_msg(chat_id, u'뭐 어떤 종류를 원하는데 똑바로 해라.')
-       return
+#def cmd_news_crawling(chat_id, text, max_count):
+#    news_type = None
+#    if text.find(NEWS_POLITICS) > 0:
+#       news_type = 'ranking_100'
+#    elif text.find(NEWS_ECONOMY) > 0:
+#       news_type = 'ranking_101'
+#    elif text.find(NEWS_SOCIETY) > 0:
+#       news_type = 'ranking_102'
+#    else:
+#       send_msg(chat_id, u'뭐 어떤 종류를 원하는데 똑바로 해라.')
+#       return
 
-    html = urllib2.urlopen('http://news.naver.com')
-    soup = BeautifulSoup(html)
-    subject = soup.find('div', {'id':news_type})
-    urls = subject.findAll('a')
-    send_msg(chat_id, u'뉴스나 봐라.')
-    cur = 0
-    for url in urls:
-       cur += 1
-       if cur > max_count:
-          break
-       send_msg(chat_id, 'http://news.naver.com' + url['href'], None, False)
+#    html = urllib2.urlopen('http://news.naver.com')
+#    soup = BeautifulSoup(html)
+#    subject = soup.find('div', {'id':news_type})
+#    urls = subject.findAll('a')
+#    send_msg(chat_id, u'뉴스나 봐라.')
+#    cur = 0
+#    for url in urls:
+#       cur += 1
+#       if cur > max_count:
+#          break
+#       send_msg(chat_id, 'http://news.naver.com' + url['href'], None, False)
 
-def cmd_crawling(chat_id, max_count):
-    html = urllib2.urlopen('http://web.humoruniv.com/board/humor/list.html?table=pds')
-    soup = BeautifulSoup(html)
-    subjects = soup.findAll('div', {'style':'position:relative'})
-    send_msg(chat_id, u'오늘 웃대 봤냐?')
-    cur = 0
-    for subject in subjects:
-       cur += 1
-       if cur > max_count:
-          break
-       url = subject.find('a')['href']
-       send_msg(chat_id, 'http://web.humoruniv.com/board/humor/' + url, None, False)
+#def cmd_crawling(chat_id, max_count):
+#    html = urllib2.urlopen('http://web.humoruniv.com/board/humor/list.html?table=pds')
+#    soup = BeautifulSoup(html)
+#    subjects = soup.findAll('div', {'style':'position:relative'})
+#    send_msg(chat_id, u'오늘 웃대 봤냐?')
+#    cur = 0
+#    for subject in subjects:
+#       cur += 1
+#       if cur > max_count:
+#          break
+#       url = subject.find('a')['href']
+#       send_msg(chat_id, 'http://web.humoruniv.com/board/humor/' + url, None, False)
        
 def cmd_echo(chat_id, text, reply_to):
     u"""cmd_echo: 사용자의 메시지를 따라서 답장
@@ -333,31 +333,31 @@ def process_cmds(msg):
         cmd_dice(chat_id, valid)
         return
 
-    cmd_humoruniv_match = re.match('^' + CMD_HUMORUNIV + ' (.*)', text)
-    if cmd_humoruniv_match:
-        subject_max = re.findall('\d+',text)
-        valid = get_count(chat_id, subject_max)
-        if valid == 0:
-           return
-        cmd_crawling(chat_id, valid)
-        return
+#    cmd_humoruniv_match = re.match('^' + CMD_HUMORUNIV + ' (.*)', text)
+#    if cmd_humoruniv_match:
+#        subject_max = re.findall('\d+',text)
+#        valid = get_count(chat_id, subject_max)
+#        if valid == 0:
+#           return
+#        cmd_crawling(chat_id, valid)
+#        return
 
-    cmd_news_match = re.match('^' + CMD_NEWS + ' (.*)', text)
-    if cmd_news_match:
-        subject_max = re.findall('\d+',text)
-        valid = get_count(chat_id, subject_max)
-        if valid == 0:
-           return
-        cmd_news_crawling(chat_id, text, valid)
-        return
+#    cmd_news_match = re.match('^' + CMD_NEWS + ' (.*)', text)
+#    if cmd_news_match:
+#        subject_max = re.findall('\d+',text)
+#        valid = get_count(chat_id, subject_max)
+#        if valid == 0:
+#           return
+#        cmd_news_crawling(chat_id, text, valid)
+#        return
 
-    cmd_naver_match = re.match('^' + CMD_NAVER + ' (.*)', text)
-    if cmd_naver_match:
-       query = text.replace(u'/네이버 ', '')
-       query = query.replace(' ', '+')
-       
-       cmd_naver_search(chat_id, query)
-       return
+#    cmd_naver_match = re.match('^' + CMD_NAVER + ' (.*)', text)
+#    if cmd_naver_match:
+#       query = text.replace(u'/네이버 ', '')
+#       query = query.replace(' ', '+')
+#       
+#       cmd_naver_search(chat_id, query)
+#       return
 
     none_msg = MSG_NONE[random.randrange(0, len(MSG_NONE))]
     send_msg(chat_id, none_msg) 
