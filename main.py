@@ -28,7 +28,7 @@ def JSNBot() -> str:
 @app.route('/webhook', methods=['POST','GET'])
 def telegram():
     data = request.get_json()
-    chat_id = data['message']['chat_id']['id']
+    chat_id = data['message']['chat']['id']
     text = data ['message']['text']
     sendMessage(chat_id,text)
     return json.dumps({'success':True})
