@@ -1,7 +1,8 @@
-runtime: python37
+runtime: python27
 
 handlers:
 - url: /set-webhook
-  script: auto
+  login: admin
+  script: main.app
 - url: .*
-  script: auto
+  script: main.app
