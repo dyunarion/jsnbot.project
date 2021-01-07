@@ -1,9 +1,8 @@
 runtime: python37
 
-manual_scaling:
 handlers:
 - url: /set-webhook
   login: admin
-  script: main.app
+  script: auto
 - url: .*
-  script: main.app
+  script: auto
