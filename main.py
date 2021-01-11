@@ -31,7 +31,7 @@ def processCommands(data):
     chat_id: (integer) 채팅 ID
     text:    (string)  사용자가 보낸 메시지 내용
     """
-
+    
     # message_id = message['message_id']
     chat_id = data['message']['chat']['id']
     text = data ['message']['text']
