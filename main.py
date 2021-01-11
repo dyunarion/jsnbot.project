@@ -12,9 +12,6 @@ import random
 TOKEN = '323404291:AAHAcS6OircOxeV83IVxBxdo4f2EGzlqcOM'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
-# 봇이 응답할 명령어
-CMD_DICE = u'/주사위'
-
 MSG_NONE = [u'나는 나보다 약한 녀석의 명령 따위는 듣지 않는다.', u'너는 뭐 쓸데없는 소리하고 있어.', u'나 장시녕 아니다.',
 u'This is 7.', u'인간 시대의 끝이 도래했다.', u'아 이직하고 싶다.', u'아 아가씨 만나고 싶다.', u'운동했더니 힘들구만.',
 u'초밥 먹으러 갈 사람?', u'야 주말에 뭐하냐?', u'치킨 먹고싶다.', u'칼바람 할 사람?', u'오승 딸 사람 있냐?',
