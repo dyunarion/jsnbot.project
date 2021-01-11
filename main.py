@@ -26,11 +26,7 @@ u'뭐 임마.', u'아님. 아무튼 아님.', u'조치.', u'ㅋ.', u'업데이�
 
 app = Flask(__name__)
 
-def processCommands(chat_id, text):
-    u"""사용자 메시지를 분석해 봇 명령을 처리
-    chat_id: (integer) 채팅 ID
-    text:    (string)  사용자가 보낸 메시지 내용
-    """
+def processCommands(chat_id, text):    
     if not text:
         return
         
