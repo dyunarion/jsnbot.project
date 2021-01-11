@@ -26,10 +26,7 @@ u'뭐 임마.', u'아님. 아무튼 아님.', u'조치.', u'ㅋ.', u'업데이�
 
 app = Flask(__name__)
 
-def processCommands(chat_id, text):    
-    if not text:
-        return
-        
+def processCommands(chat_id, text):           
     diceMatch = re.match('^' + CMD_DICE + ' (.*)', text)
     if diceMatch:
         diceMax = re.findall('\d+',text)
@@ -86,7 +83,7 @@ def jsnBot() -> str:
 def telegram():
     data = request.get_json()
     chat_id = data["message"]["from"]["id"]
-    txt = data["message"]["text"]
+    text = data["message"]["text"]
     
     processCommands(chat_id, text)
     return json.dumps({'success':True})
