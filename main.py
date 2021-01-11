@@ -27,9 +27,9 @@ def processCommands(data):
     u"""사용자 메시지를 분석해 봇 명령을 처리
     chat_id: (integer) 채팅 ID
     text:    (string)  사용자가 보낸 메시지 내용
-    """        
-    
-    message_id = data['message']['id']
+    """
+
+    # message_id = message['message_id']
     chat_id = data['message']['chat']['id']
     text = data ['message']['text']
 
