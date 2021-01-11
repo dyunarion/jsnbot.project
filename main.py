@@ -90,7 +90,7 @@ def jsnBot() -> str:
 def telegram():
     data = request.get_json()
     chat_id = data['message']['chat']['id']
-    text = data ['message']['text']    
+    text = data['message']['text']    
     processCommands(chat_id, text)
     return json.dumps({'success':True})
 
