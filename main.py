@@ -23,18 +23,17 @@ u'뭐 임마.', u'아님. 아무튼 아님.', u'조치.', u'ㅋ.', u'업데이�
 
 app = Flask(__name__)
 
-def processCommands(message):
+def processCommands(data):
     u"""사용자 메시지를 분석해 봇 명령을 처리
     chat_id: (integer) 채팅 ID
     text:    (string)  사용자가 보낸 메시지 내용
-    """
-    message_id = message['message_id']
-    chat_id = message['chat']['id']
+    """        
+    
+    message_id = data['message']['id']
+    chat_id = data['message']['chat']['id']
     text = data ['message']['text']
 
     if not text:
-        return    
-    if not get_enabled(chat_id):
         return
         
     diceMatch = re.match('^' + CMD_DICE + ' (.*)', text)
