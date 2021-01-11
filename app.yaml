@@ -1,4 +1,3 @@
 runtime: python37
-version: 1
 threadsafe: yes
 entrypoint: gunicorn -b :$PORT main:app
